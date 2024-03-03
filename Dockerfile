@@ -38,4 +38,4 @@ expose $ENV_PORT
 # The command specifies the port, there is an hard-coded default port also in the GO files with the value of 80 just in case
 #
 
-CMD ["PORT=$ENV_PORT", "/etc/coraza/http-server"]
+CMD ["/etc/coraza/http-server"]
