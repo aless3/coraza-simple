@@ -1,0 +1,8 @@
+# Will download those when building the container, and should be replaced anyway
+http-server/default
+http-server/coreruleset
+http-server/custom
+
+# Can ignore test files in the container
+http-server/*_test.go
+http-server/testdata

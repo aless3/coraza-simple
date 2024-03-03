@@ -17,6 +17,9 @@ WORKDIR /etc/coraza
 # Grab che last CRS from github
 RUN git clone https://github.com/coreruleset/coreruleset
 
+# Create directory for custom rules, should be empty, but already present because `main.go` tries to load files from there.
+RUN mkdir custom
+
 #
 # Copy the simple http server that will accept and check the requests and build it
 #
