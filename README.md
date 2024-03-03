@@ -1,5 +1,6 @@
 # IMPORTANT NOTICE
-I still have to set up automatic builds, so the examples pulling from ghcr.io still don't work, if you build the image yourself it works.
+This is just a small project I use now, I honestly do not have enough knowledge to say this is secure as a "native" implementation, if you have any tips file an issue.
+If you would like to take over this project let me know, I only built this because I need it, but I hate the GO language and would really like to not touch it again.
 
 # coraza-simple
 
@@ -10,7 +11,7 @@ There is a simple docker-compose.yml file that shows how to use this image in tr
 
 # How to add rules
 ## TLDR - but you should really read the long version
-The loaded files in are `/etc/coraza/default/coraza.conf`, `/etc/coraza/coreruleset/crs-setup.conf.example` and `.conf` file in the `/etc/coraza/coreruleset/rules/` folder and `.conf` files in the `/etc/coraza/custom/` folder.
+The loaded files in are `/etc/coraza/default/coraza.conf`, `/etc/coraza/coreruleset/crs-setup.conf.example`, `.conf` files in the `/etc/coraza/coreruleset/rules/` folder and `.conf` files in the `/etc/coraza/custom/` folder.
 
 ## Long version
 First of all you should mount the `/etc/coraza/coreruleset/` folder and use an up to date version of the CRS, the one shipped is grabbed when the container is built.
@@ -45,3 +46,8 @@ The docker-compose files refer to this plugin.
 The server is heavily based on the official [http-server example from Coraza](https://github.com/corazawaf/coraza/tree/main/examples/http-server).
 
 The directory [`testdata`](https://github.com/aless3/coraza-simple/tree/main/http-server/testdata) is a stripped down version form the [official example](https://github.com/corazawaf/coraza/tree/main/examples/http-server/testdata) (I removed the support to change the response body on the fly).
+
+# LICENSE
+Essentially a [WTFPL – Do What the Fuck You Want to Public License](http://www.wtfpl.net/).
+Modified to please ping me if you improve the software so I can start using your version. It is not a requirement.
+Actually the modification is a joke, Do What the Fuck You Want.
