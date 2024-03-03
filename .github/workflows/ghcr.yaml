@@ -2,7 +2,7 @@ name: Create and publish a Docker image to GitHub Container Registry
 
 on:
   push:
-    branches: ['main']
+    branches: ["main"]
 
 env:
   REGISTRY: ghcr.io
@@ -30,13 +30,11 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          #images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          images: ${{ env.REGISTRY }}/pradumnasaraf/hello-world
+          images: ${{ env.REGISTRY }}/${{ github.actor }}/${{ env.IMAGE_NAME }}
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
           context: .
           push: true
-          # tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          tags: ${{ env.REGISTRY }}/pradumnasaraf/hello-world:latest
+          tags: ${{ env.REGISTRY }}/${{ github.actor }}/${{ env.IMAGE_NAME }}
           labels: ${{ steps.meta.outputs.labels }}
