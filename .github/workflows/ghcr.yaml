@@ -1,10 +1,20 @@
-name: Publish to GHCR.io
- 
-on: [push]
+name: Build and Push to GHCR
+
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-  build_tag_push_to_ghcr:
+  build_and_push:
     runs-on: ubuntu-latest
     steps:
-      - name: Build, Tag and Push Docker Image to GHCR
-        uses: GlueOps/github-actions-build-push-containers@main
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build and Push the Image to GHCR
+        run: |
+          docker login ghcr.io -u ${{ github.actor }} \
+          -p $
+          docker build -t ghcr.io/${{ github.actor }}/${{ github.repository }}:latest
+          docker push ghcr.io/${{ github.actor }}/${{ github.repository }}:latest
