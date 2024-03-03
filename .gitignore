@@ -4,6 +4,5 @@ tests/logs/
 # ignore .env in tests for docker-compose variables
 tests/.env
 
-http-server/coreruleset/
-http-server/testdata/
 http-server/coraza.conf
+http-server/coreruleset/

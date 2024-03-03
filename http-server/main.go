@@ -35,7 +35,7 @@ func main() {
 }
 
 func createWAF() coraza.WAF {
-	directivesFile := "custom/default.conf"
+	directivesFile := "custom/*.conf"
 
 	// For unit testing
 	if s := os.Getenv("DIRECTIVES_FILE"); s != "" {
