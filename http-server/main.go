@@ -45,7 +45,7 @@ func createWAF() coraza.WAF {
 	waf, err := coraza.NewWAF(
 		coraza.NewWAFConfig().
 			WithErrorCallback(logError).
-			WithDirectivesFromFile("./coraza.conf").
+			WithDirectivesFromFile("./default/coraza.conf").
 			WithDirectivesFromFile("./coreruleset/crs-setup.conf.example").
 			WithDirectivesFromFile("./coreruleset/rules/*.conf").
 			WithDirectivesFromFile(directivesFile),

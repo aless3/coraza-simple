@@ -3,8 +3,32 @@
 This is a simlpe container based on the [GOLANG base container](https://hub.docker.com/_/golang/) with an http server that uses Coraza as waf to block incoming connections.
 Coraza is set to disruptive mode (`SecRuleEngine On` instead of the default`SecRuleEngine DetectionOnly`)
 
-# How to add custom rules
-Mount the `/etc/coraza/custom/` folder and place there the `.conf` file, every `.conf` file will be read at startup.
+# How to add rules
+## TLDR - but you should really read the long version
+The loaded files in are `/etc/coraza/default/coraza.conf`, `/etc/coraza/coreruleset/crs-setup.conf.example` and `.conf` file in the `/etc/coraza/coreruleset/rules/` folder and `.conf` files in the `/etc/coraza/custom/` folder.
+
+## Long version
+First of all you should mount the `/etc/coraza/coreruleset/` folder and use an up to date version of the CRS, the one shipped is grabbed when the container is built.
+
+Then the `/etc/coraza/default/` directory has the file `coraza.conf` that is the [reccomended coraza config](https://raw.githubusercontent.com/corazawaf/coraza/v3/dev/coraza.conf-recommended) - you should update that too, you can mount the `/etc/coraza/default/` for easier access to the file (sometimes docker has problems mounting a file instead of a directory).
+
+You can also mount the `/etc/coraza/custom/` folder and place there the `.conf` file, every `.conf` file there will be read at startup, this may be useful when just syncing git with the upstream CRS to avoid adding files in that repo accidentally.
+
+## Simple stupid way to update CRS and coraza default
+Replace path/to/xyz to the respective mounted path.
+``` shell
+
+# Update coraza.conf
+wget https://raw.githubusercontent.com/corazawaf/coraza/v3/dev/coraza.conf-recommended -O path/to/default/coraza.conf
+
+# also set Coraza with the disruptive mode to block requests instead of just logging them
+sed -i'.bak' 's|SecRuleEngine DetectionOnly|SecRuleEngine On|' coraza.conf
+
+# Update CRS
+cd path/to/coreruleset
+git clone pull
+
+```
 
 # Info about why this project
 This aims to be an easy replacement for the Modsecurity container with default values, to use while waiting other Coraza implementation matures (like wasm [[1](https://github.com/corazawaf/coraza-proxy-wasm)/[2](https://github.com/jcchavezs/coraza-http-wasm)] or the [yaegi interpreter](https://github.com/traefik/yaegi) gets [full 3rd party compatibility](https://github.com/traefik/yaegi/issues/1612)) and get ready to be used in other software like Traefik.

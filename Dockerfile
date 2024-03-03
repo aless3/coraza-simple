@@ -1,10 +1,10 @@
 FROM golang:latest
 
-WORKDIR /etc/coraza
-
 #
 # First we gather the configuration files with the rules and the last CRS available
 #
+
+WORKDIR /etc/coraza/default
 
 # Default Coraza config
 RUN wget https://raw.githubusercontent.com/corazawaf/coraza/v3/dev/coraza.conf-recommended -O coraza.conf
@@ -12,11 +12,13 @@ RUN wget https://raw.githubusercontent.com/corazawaf/coraza/v3/dev/coraza.conf-r
 # The default Coraza does not disrupt connections but only logs them, we change that
 RUN sed -i'.bak' 's|SecRuleEngine DetectionOnly|SecRuleEngine On|' coraza.conf
 
-# Get che last CRS from github
+WORKDIR /etc/coraza
+
+# Grab che last CRS from github
 RUN git clone https://github.com/coreruleset/coreruleset
 
 #
-# We then copy the http server that will accept the requests and build it
+# Copy the simple http server that will accept and check the requests and build it
 #
 
 COPY http-server/* .
